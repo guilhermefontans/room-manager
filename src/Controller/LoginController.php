@@ -11,6 +11,9 @@ class LoginController extends Controller
 {
     /**
      * @Route("/login", name="login")
+     * @param Request $request
+     * @param AuthenticationUtils $authenticationUtils
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function login(Request $request, AuthenticationUtils $authenticationUtils)
     {
@@ -27,6 +30,5 @@ class LoginController extends Controller
      */
     public function logout()
     {
-
     }
 }
