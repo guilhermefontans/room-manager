@@ -20,6 +20,6 @@ security:
                 path: /logout
                 target: /
     access_control:
-        - { path: ^/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/users/new, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^, roles: IS_AUTHENTICATED_FULLY }
