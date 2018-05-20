@@ -85,7 +85,7 @@ function doDelete(){
         data: eventID,
         method:"DELETE",
         success: function(json) {
-            $("#createEventModal").modal('hide');
+            $("#calendarModal").modal('hide');
             clearError("errorsDelete", "msgDelete");
             $("#calendar").fullCalendar('removeEvents', eventID);
         },
