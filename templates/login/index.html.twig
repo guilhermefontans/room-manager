@@ -1,32 +1,38 @@
-{% extends 'base.html.twig' %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+    <body>
+        <form class="form-signin" action="{{ path('login') }}" method="POST">
+            <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+            {% if errors %}
+                <div class="alert alert-danger">
+                    {{ errors.messageKey }}
+                </div>
+            {% endif %}
 
-{% block title %}Login{% endblock %}
-
-{% block body %}
-    <form class="form-signin" action="{{ path('login') }}" method="POST">
-        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-        {% if errors %}
-            <div class="alert alert-danger">
-                {{ errors.messageKey }}
+            <label for="username" class="sr-only">UserName</label>
+            <input type="text" id="username" class="form-control" placeholder="User Name" name="_username" required autofocus value="{{ username }}">
+            <label for="password" class="sr-only">Password</label>
+            <input type="password" id="password" class="form-control" name="_password" placeholder="Password" required>
+            <div class="checkbox mb-3">
+                <label>
+                    <input type="checkbox" value="remember-me"> Remember me
+                </label>
             </div>
-        {% endif %}
-
-        <label for="username" class="sr-only">UserName</label>
-        <input type="text" id="username" class="form-control" placeholder="User Name" name="_username" required autofocus value="{{ username }}">
-        <label for="password" class="sr-only">Password</label>
-        <input type="password" id="password" class="form-control" name="_password" placeholder="Password" required>
-        <div class="checkbox mb-3">
-            <label>
-                <input type="checkbox" value="remember-me"> Remember me
-            </label>
-        </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-        <div class="text-center p-t-136">Not registered?
-            <a class="txt2" href="{{ path("user_new") }}">
-                Create your Account
-                <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
-            </a>
-        </div>
-
-    </form>
-{% endblock %}
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+            <div class="text-center p-t-136">Not registered?
+                <a class="txt2" href="{{ path("user_new") }}">
+                    Create your Account
+                    <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+                </a>
+            </div>
+        </form>
+        <script src="{{ asset('js/jquery.slim.min.js') }}"></script>
+        <script src="{{ asset('js/popper.min.js') }}"></script>
+        <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    </body>
+</html>

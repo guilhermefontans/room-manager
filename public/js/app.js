@@ -57,7 +57,6 @@ function showCalendar(reserves) {
 
 function doSubmit() {
 
-
     var title = $('#title').val();
     var startTime = $('#startTime').val();
     var endTime = $('#endTime').val();
@@ -70,18 +69,7 @@ function doSubmit() {
         success: function(json) {
             $("#createEventModal").modal('hide');
             clearError("errorsCreate", "msgCreate");
-            $("#calendar").fullCalendar(
-                'renderEvent',
-                {
-                    id: json.id,
-                    title: json.title,
-                    room: json.room,
-                    user: json.user,
-                    start: json.start,
-                    end: json.end,
-                },
-                true)
-            ;
+            window.location.reload();
         },
         error: function(data) {
             $("#errorsCreate").attr('class', 'd-block');

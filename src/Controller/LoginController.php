@@ -17,6 +17,12 @@ class LoginController extends Controller
      */
     public function login(Request $request, AuthenticationUtils $authenticationUtils)
     {
+        $user = $this->getUser();
+
+        if ($user) {
+            $this->redirectToRoute("home");
+        }
+
         $errors = $authenticationUtils->getLastAuthenticationError();
         $lastUserName = $authenticationUtils->getLastUsername();
         return $this->render('login/index.html.twig', [
@@ -30,5 +36,13 @@ class LoginController extends Controller
      */
     public function logout()
     {
+    }
+
+    /**
+     * @Route("/", name="home")
+     */
+    public function home()
+    {
+        return $this->render("index.html.twig");
     }
 }
