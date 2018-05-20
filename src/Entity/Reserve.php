@@ -22,14 +22,14 @@ class Reserve
     private $title;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="reserves")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="reserves", cascade={"persist"})
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Room", inversedBy="reserves")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Room", inversedBy="reserves", cascade={"persist"})
+     * @ORM\JoinColumn(name="room_id", referencedColumnName="id")
      */
     private $room;
 
@@ -118,7 +118,7 @@ class Reserve
         $array['user'] = $this->getUser()->getUsername();
         $array['room'] = $this->getRoom()->getName();
 
-        $format = 'c'; // full ISO8601 output, like "2013-12-29T09:00:00+08:00"
+        $format = 'Y-m-d\TH:i:s';
 
         $array['start'] = $this->start->format($format);
         if (isset($this->end)) {

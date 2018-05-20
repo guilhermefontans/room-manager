@@ -44,7 +44,7 @@ class User implements UserInterface
     private $password;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Reserve", mappedBy="user", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Reserve", mappedBy="user", cascade={"all"}, orphanRemoval=true)
      */
     private $reserves;
 
@@ -160,7 +160,6 @@ class User implements UserInterface
     {
         if ($this->reserves->contains($reserve)) {
             $this->reserves->removeElement($reserve);
-            // set the owning side to null (unless already changed)
             if ($reserve->getUser() === $this) {
                 $reserve->setUser(null);
             }

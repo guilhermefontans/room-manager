@@ -3,7 +3,7 @@ function showCalendar(reserves) {
         header: {
             left: 'prev,next today',
             center: 'title',
-            right: 'month,agendaWeek,basicDay'
+            right: 'agendaWeek,agendaDay'
         },
         defaultView: 'agendaWeek',
         navLinks: true,
@@ -56,7 +56,7 @@ function showCalendar(reserves) {
 }
 
 function doSubmit() {
-    $("#createEventModal").modal('hide');
+
 
     var title = $('#title').val();
     var startTime = $('#startTime').val();
@@ -68,6 +68,8 @@ function doSubmit() {
         data: 'action=add&title='+title+'&start='+startTime+'&end='+endTime+'&room='+room,
         type: "POST",
         success: function(json) {
+            $("#createEventModal").modal('hide');
+            clearError("errorsCreate", "msgCreate");
             $("#calendar").fullCalendar(
                 'renderEvent',
                 {
@@ -80,22 +82,33 @@ function doSubmit() {
                 },
                 true)
             ;
+        },
+        error: function(data) {
+            $("#errorsCreate").attr('class', 'd-block');
+            $("#msgCreate").text(data.responseText);
         }
     });
 }
 
 function doDelete(){
-    $("#calendarModal").modal('hide');
     var eventID = $('#eventID').val();
     $.ajax({
         url: '/reserves/'+eventID,
         data: eventID,
         method:"DELETE",
         success: function(json) {
+            $("#createEventModal").modal('hide');
+            clearError("errorsDelete", "msgDelete");
             $("#calendar").fullCalendar('removeEvents', eventID);
         },
-        error: function(error) {
-            alert(error.responseText);
+        error: function(data) {
+            $("#errorsDelete").attr('class', 'd-block');
+            $("#msgDelete").text(data.responseText);
         }
     });
+}
+
+function clearError(div, label) {
+    $("#" + div).attr('class', 'd-none');
+    $("#" + label).text("");
 }

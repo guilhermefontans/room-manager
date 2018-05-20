@@ -37,7 +37,6 @@
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
                     if (data != null) {
-                        console.log(data)
                         var selectbox = $('#room');
                         selectbox.find('option').remove();
                         $.each(data, function (index, room) {
@@ -96,6 +95,12 @@
                 <input type="hidden" id="startTime"/>
                 <input type="hidden" id="endTime"/>
 
+                <div id="errorsCreate" class="d-none">
+                    <div class="alert alert-danger">
+                        <label id="msgCreate">cdcdscd</label>
+                    </div>
+                </div>
+
                 <div class="control-group">
                     <label class="control-label" for="when">When:</label>
                     <div class="controls controls-row" id="when" style="margin-top:5px;">
@@ -104,11 +109,10 @@
 
             </div>
             <div class="modal-footer">
-                <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                <button class="btn" data-dismiss="modal" aria-hidden="true" onclick="clearError('errorsCreate', 'msgCreate')">Cancel</button>
                 <button type="submit" class="btn btn-primary" id="submitButton">Save</button>
             </div>
         </div>
-
     </div>
 </div>
 
@@ -123,9 +127,14 @@
                 <h4 id="modalTitle" class="modal-title"></h4>
                 <div id="modalWhen" style="margin-top:5px;"></div>
             </div>
+            <div id="errorsDelete" class="d-none">
+                <div class="alert alert-danger">
+                    <label id="msgDelete"></label>
+                </div>
+            </div>
             <input type="hidden" id="eventID"/>
             <div class="modal-footer">
-                <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                <button class="btn" data-dismiss="modal" aria-hidden="true" onclick="clearError('errorsDelete', 'msgDelete')">Cancel</button>
                 <button type="submit" class="btn btn-danger" id="deleteButton">Delete</button>
             </div>
         </div>

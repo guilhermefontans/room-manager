@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Reserve;
 use App\Entity\Room;
 use App\Repository\ReserveRepository;
+use App\Repository\RoomRepository;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,7 +21,7 @@ class ReserveController extends Controller
     /**
      * @Route("/", name="reserve_index", methods="GET")
      */
-    public function index(ReserveRepository $reserveRepository): Response
+    public function index(ReserveRepository $reserveRepository, UserRepository $userRepository): Response
     {
 
         $reserves = $reserveRepository->findAll();
@@ -35,11 +37,12 @@ class ReserveController extends Controller
     /**
      * @Route("/new", name="reserve_new", methods="GET|POST")
      */
-    public function new(Request $request): Response
+    public function new(Request $request, ReserveRepository $reserveRepository, RoomRepository $roomRepository): Response
     {
 
         $manager = $this->getDoctrine()->getManager();
         $reserve = new Reserve();
+        $reserves = $reserveRepository->findAll();
 
         $reserve->setStart(new \DateTime($request->get('start')));
         $room = $manager->find(Room::class, $request->get('room'));
@@ -48,8 +51,18 @@ class ReserveController extends Controller
         $reserve->setUser($this->getUser());
         $reserve->setTitle($request->get('title'));
 
-        $manager->persist($room);
-        $manager->persist($reserve);
+        foreach($reserves as $reserveDatabase) {
+            if($reserveDatabase->getStart()->format("Y-m-d h") == $reserve->getStart()->format("Y-m-d h")){
+                if ($reserveDatabase->getRoom()->getName()  == $reserve->getRoom()->getName()) {
+                    return new Response("This room already is reserved in this period", Response::HTTP_CONFLICT);
+                }
+
+                if ($reserveDatabase->getUser()->getUsername() == $reserve->getUser()->getUsername()) {
+                    return new Response("This user already to reserved other room in same time", Response::HTTP_CONFLICT);
+                }
+            }
+        }
+
         $manager->persist($reserve);
         $manager->flush();
 
