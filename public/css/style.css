@@ -4,6 +4,7 @@ body {
 }
 
 body {
+    margin: 40px 10px;
     display: -ms-flexbox;
     display: flex;
     -ms-flex-align: center;
@@ -41,4 +42,9 @@ body {
     margin-bottom: 10px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
+}
+
+#calendar {
+    max-width: 900px;
+    margin: 0 auto;
 }

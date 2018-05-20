@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -13,7 +15,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @package App\Entity
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- * @UniqueEntity(fields={"email", "username"}, message="This one already exists")
+ * @UniqueEntity(fields={"email"}, message="This email already exists")
+ * @UniqueEntity(fields={"username"}, message="This user already exists")
  */
 class User implements UserInterface
 {
@@ -39,6 +42,16 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255)
      */
     private $password;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Reserve", mappedBy="user", orphanRemoval=true)
+     */
+    private $reserves;
+
+    public function __construct()
+    {
+        $this->reserves = new ArrayCollection();
+    }
 
     public function getId()
     {
@@ -123,5 +136,36 @@ class User implements UserInterface
     public function eraseCredentials()
     {
         // TODO: Implement eraseCredentials() method.
+    }
+
+    /**
+     * @return Collection|Reserve[]
+     */
+    public function getReserves(): Collection
+    {
+        return $this->reserves;
+    }
+
+    public function addReserve(Reserve $reserve): self
+    {
+        if (!$this->reserves->contains($reserve)) {
+            $this->reserves[] = $reserve;
+            $reserve->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReserve(Reserve $reserve): self
+    {
+        if ($this->reserves->contains($reserve)) {
+            $this->reserves->removeElement($reserve);
+            // set the owning side to null (unless already changed)
+            if ($reserve->getUser() === $this) {
+                $reserve->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }
