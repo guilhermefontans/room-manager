@@ -22,6 +22,6 @@ $ mysql -u user -p password -f < dump/init.sql
 $ php -S 127.0.0.1:8000 -t public
 ```
 
-- Access your browser in the following url 127.0.0.1:8000 
- username: admin
- password: admin
+Access your browser in the following url 127.0.0.1:8000 
+ - username: admin
+ - password: admin
