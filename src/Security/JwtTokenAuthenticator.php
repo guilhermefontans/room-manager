@@ -45,7 +45,7 @@ class JwtTokenAuthenticator extends AbstractGuardAuthenticator
      */
     public function supports(Request $request)
     {
-        // TODO: Implement supports() method.
+        return $request->headers->has('Authorization');
     }
 
     /**
