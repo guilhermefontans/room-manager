@@ -1,0 +1,26 @@
+
+    <title>Login</title>
+	<link href="assets/css/login.css" rel="stylesheet">
+	<link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <body>
+		<div [hidden]="!error" class="alert alert-danger" role="alert">
+			<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+			<span class="sr-only">Error: {{ error }}</span>	
+		</div>
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+            <label for="username" class="sr-only">UserName</label>
+            <input type="text" class="form-control" placeholder="Username*" formControlName="username">
+            <label for="password" class="sr-only">Password</label>
+            <input type="password" class="form-control" placeholder="Password*" formControlName="password">
+            <div class="checkbox mb-3">
+                <label>
+                    <input type="checkbox" value="remember-me"> Remember me
+                </label>
+            </div>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+		</form>
+		<script src="assets/js/bootstrap.min.js"></script>
+		<script src="assets/js/jquery.slim.min.js"></script>
+		<script src="assets/js/pooper.min.js"></script>
+    </body>

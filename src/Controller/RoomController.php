@@ -19,15 +19,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class RoomController extends Controller
 {
     /**
-     * @Route("/", name="room_index", methods="GET")
-     */
-    public function index(RoomRepository $roomRepository): Response
-    {
-        return $this->render('room/index.html.twig', ['rooms' => $roomRepository->findAll()]);
-    }
-
-    /**
-     * @Route("/all", name="room_all", methods="GET")
+     * @Route("/", name="room_all", methods="GET")
      */
     public function findAll(RoomRepository $roomRepository): Response
     {
