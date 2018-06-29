@@ -1,5 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule, MatCheckboxModule } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Http, HttpModule, RequestOptions } from '@angular/http';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -24,6 +26,9 @@ import { RoomRepositoryService } from './room/room-repository.service';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatCheckboxModule,
     ReactiveFormsModule,
     HttpModule,
     HttpClientModule,
