@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule, MatCheckboxModule } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TableDefaultModule } from './table-default/table-default.module';
 import { Http, HttpModule, RequestOptions } from '@angular/http';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Subject } from 'rxjs';
@@ -15,17 +16,21 @@ import { AuthenticationComponent } from './authentication/authentication.compone
 import { AuthenticationService } from './authentication/authentication.service';
 import { HomepageComponent } from './homepage/homepage.component';
 import { RoomComponent } from './room/room.component';
+import { MatTableModule } from '@angular/material/table';
 import { RoomRepositoryService } from './room/room-repository.service';
+import { TableDefaultComponent } from './table-default/table-default.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AuthenticationComponent,
     HomepageComponent,
-    RoomComponent    
+    RoomComponent,
+    TableDefaultComponent
   ],
   imports: [
     BrowserModule,
+    MatTableModule,
     BrowserAnimationsModule,
     MatButtonModule,
     MatCheckboxModule,

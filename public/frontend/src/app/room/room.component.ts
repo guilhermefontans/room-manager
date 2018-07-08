@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { first } from 'rxjs/operators';
 import { RoomRepositoryService } from './room-repository.service';
+import { TableDefaultComponent } from '../table-default/table-default.component';
 
 @Component({
   selector: 'app-room',
@@ -20,5 +21,4 @@ export class RoomComponent implements OnInit {
 
     console.log(this.rooms);
   }
-
 }
