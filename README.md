@@ -14,7 +14,7 @@ $ php composer.phar install
 ```
 3 - Copy the .env.dist file to .env to get the connection string to the database already configured to connect with the docker database.
 ```sh
-$ cp .env-dist .env 
+$ cp .env.dist .env 
 ```
 4 - Enter in the directory docker localized in the root
 ```sh 
