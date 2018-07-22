@@ -1,27 +1,29 @@
 # room-manager
 
-This project require php version 7.2 or greater 
+This project was developed with php version 7.2, docker version 18 and docker-compose version 1.21
 
 To install the project follow these steps: 
 
-- Clone this project:
+1 - Clone this project:
 ```sh
 $ git clone https://github.com/guilhermefontans/room-manager.git
 ```
-- Enter in the downloaded directory and run this command to download the dependencies
+2 - Enter in the downloaded directory and run this command to download the dependencies
 ```sh 
 $ php composer.phar install
 ```
-- Copy the .env.dist file to .env and set the connection string to the database located inside the file
-- Import the script located in the dump/init.sql folder with the command:
+3 - Copy the .env.dist file to .env to get the connection string to the database already configured to connect with the docker database.
 ```sh
-$ mysql -u user -p password -f < dump/init.sql 
+$ cp .env-dist .env 
 ```
-- Start the php server with the command: 
+4 - Enter in the directory docker localized in the root
 ```sh 
-$ php -S 127.0.0.1:8000 -t public
+$ cd docker
 ```
-
-Access your browser in the following url 127.0.0.1:8000 
+5 - Start the docker project with the command: 
+```sh 
+$ docker-compose up -d
+```
+Access your browser in the following url http://localhost 
  - username: admin
  - password: admin
