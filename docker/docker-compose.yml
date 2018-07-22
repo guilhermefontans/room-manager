@@ -1,0 +1,31 @@
+version: '3.3'
+
+services:
+    php-fpm:
+        build:
+            context: ./php-fpm
+        volumes:
+          - ../:/usr/share/nginx
+    nginx:
+        build:
+            context: ./nginx
+        volumes:
+          - ../:/usr/share/nginx
+          - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+          - ./nginx/sites/:/etc/nginx/sites-available
+          - ./nginx/conf.d/:/etc/nginx/conf.d
+        ports:
+          - "80:80"
+          - "443:443"
+        depends_on:
+          - php-fpm
+    database:
+        build:
+            context: ./database
+        environment:
+            - MYSQL_DATABASE=room_manager
+            - MYSQL_USER=myuser
+            - MYSQL_PASSWORD=secret
+            - MYSQL_ROOT_PASSWORD=root
+        volumes:
+            - ../dump/init.sql:/docker-entrypoint-initdb.d/data.sql
