@@ -1,0 +1,6 @@
+---
+  # cria uma nova máquina conforme o provider informado
+  - hosts: localhost
+    tasks:
+      - docker_service:
+          project_src: "/home/guilhermefontans/PhpstormProjects/room-manager/docker"
