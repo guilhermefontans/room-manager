@@ -1,4 +1,4 @@
-FROM nginx:alpine:stable
+FROM nginx:alpine
 
 CMD ["nginx"]
 
